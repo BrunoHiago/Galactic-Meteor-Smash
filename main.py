@@ -1,8 +1,9 @@
 import pygame
-from Nave import Nave
-from Meteoro import Meteoro
-from Bala import Bala
-from Score import Score
+from src.obj.Nave import Nave
+from src.obj.Meteoro import Meteoro
+from src.obj.Bala import Bala
+from src.Score import Score
+from src import HomeScreen
 
 if __name__ == '__main__':
     pygame.init()
@@ -10,6 +11,10 @@ if __name__ == '__main__':
     height = 500
     display = pygame.display.set_mode([width, height])
     pygame.display.set_caption("Asteroids")
+
+    # Background
+    background = pygame.image.load('./src/img/background.jpg')
+    background = pygame.transform.scale(background, (width, height))
 
     # Grupo de Objeto
     meteorGroup = pygame.sprite.Group()
@@ -22,14 +27,19 @@ if __name__ == '__main__':
     loop = True
 
     # sons
-    explosion = pygame.mixer.Sound("./sounds/explosao.wav")
+    explosion = pygame.mixer.Sound("./src/sounds/explosao.wav")
 
     # placar
     score = Score()
     score.draw(display)
 
+    # Home Screen
+    homeScreen = True
+
     while loop:
 
+        if homeScreen:
+            homeScreen = HomeScreen.tela_inicio(width, height, background, display)
         if score.score > level * 10:
             level += 1
         if cont >= 10 - level:
@@ -39,12 +49,14 @@ if __name__ == '__main__':
         cont *= 1.1
 
         # Colisoes
-        collision = pygame.sprite.spritecollide(nave, meteorGroup, True, pygame.sprite.collide_mask)
+        collision = pygame.sprite.spritecollide(
+            nave, meteorGroup, True, pygame.sprite.collide_mask)
 
         if collision:
-            loop = False
+            homeScreen = not homeScreen
 
-        collisionBala = pygame.sprite.groupcollide(balaGroup, meteorGroup, True, True, pygame.sprite.collide_mask)
+        collisionBala = pygame.sprite.groupcollide(
+            balaGroup, meteorGroup, True, True, pygame.sprite.collide_mask)
         if collisionBala:
             score.update()
             explosion.play()
@@ -61,10 +73,10 @@ if __name__ == '__main__':
 
         for met in meteorGroup:
             if met.rect.x < 0:
-                loop = not loop
+                homeScreen = not homeScreen
         # /fim fechar a tela
 
-        display.fill((0, 0, 0))
+        display.blit(background, (0, 0))
 
         objectGroup.update()
 
