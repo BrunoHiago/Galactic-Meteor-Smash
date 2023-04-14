@@ -1,4 +1,4 @@
-# Meu Jogo de Nave com Pygame :rocket: :star:
+# Galactic Meteor Smash :rocket: :star:
 
 Este é um jogo simples de nave espacial desenvolvido em Python utilizando a biblioteca Pygame. O objetivo do jogo é controlar uma nave espacial e destruir os meteoros que estão vindo em sua direção.
 

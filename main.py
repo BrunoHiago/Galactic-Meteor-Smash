@@ -10,7 +10,7 @@ if __name__ == '__main__':
     width = 700
     height = 500
     display = pygame.display.set_mode([width, height])
-    pygame.display.set_caption("Asteroids")
+    pygame.display.set_caption("Galactic Meteor Smash")
 
     # Background
     background = pygame.image.load('./src/img/background.jpg')
