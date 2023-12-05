@@ -1,11 +1,12 @@
 import pygame
+import asyncio
 from src.obj.Nave import Nave
 from src.obj.Meteoro import Meteoro
 from src.obj.Bala import Bala
 from src.Score import Score
 from src import HomeScreen
 
-if __name__ == '__main__':
+async def main():
     pygame.init()
     width = 700
     height = 500
@@ -86,3 +87,7 @@ if __name__ == '__main__':
         pygame.display.update()
         pygame.time.delay(30)
         pygame.display.flip()
+
+        await asyncio.sleep(0)  # 0.1
+
+asyncio.run(main())
