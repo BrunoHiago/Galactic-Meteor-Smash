@@ -1,6 +1,7 @@
 import pygame
+import asyncio
 
-def tela_inicio(width, height, background, display):
+async def tela_inicio(width, height, background, display):
     pygame.init()
 
     fonte_titulo = pygame.font.Font(None, 64)
@@ -40,5 +41,7 @@ def tela_inicio(width, height, background, display):
                 elif quitButton_react.collidepoint(event.pos):
                     pygame.quit()
                     quit()
+        
+        await asyncio.sleep(0)
     
     return False

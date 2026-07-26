@@ -11,7 +11,7 @@ class Nave(pygame.sprite.Sprite):
         self.rect = self.image.get_rect()
         self.rect.topleft = self.pos
         self.sped = 0
-        self.aceleration = 0.8
+        self.aceleration = 1.5
 
     def update(self):
 
@@ -22,7 +22,13 @@ class Nave(pygame.sprite.Sprite):
         elif keys[pygame.K_s] or keys[pygame.K_DOWN]:
             self.sped += self.aceleration
         else:
-            self.sped *= 0.4
+            self.sped *= 0.85  # Atrito suave (deslizar)
+
+        # Clampar velocidade máxima
+        if self.sped > 12:
+            self.sped = 12
+        elif self.sped < -12:
+            self.sped = -12
 
         self.rect.y += self.sped
 
